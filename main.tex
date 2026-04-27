@@ -64,6 +64,7 @@
 
 
 \usepackage{standalone}
+\usepackage{indentfirst}
 \moderncvstyle{classic} % CV theme - options include: 'casual' (default), 'classic', 'oldstyle' and 'banking'
 \moderncvcolor{blue} % CV color - options include: 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
 
@@ -675,6 +676,21 @@
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cvawardrow}%
 }
 
+\newenvironment{cvnarrative}{%
+  \begingroup
+  \setlength{\parindent}{1zw}%
+  \setlength{\parskip}{0pt}%
+}{%
+  \par
+  \endgroup
+}
+
+\newcommand{\cvnarrativeinput}[1]{%
+  \begin{cvnarrative}%
+    \input{#1}%
+  \end{cvnarrative}%
+}
+
 
 % \newcommand{\cvreference}[7]{%
 %     \textbf{#1}\newline% Name
@@ -696,7 +712,7 @@
 % \vspace{-5mm}
 \section{\textbf{研究分野}}
 
-\input{data/about.tex}
+\cvnarrativeinput{data/about.tex}
 \fi
 
 
