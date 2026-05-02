@@ -679,6 +679,14 @@
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cvawardrow}%
 }
 
+\def\cvsectiontitlerow#1\cvcsvend{%
+  \section{\textbf{#1}}%
+}
+
+\newcommand{\cvrendersectiontitle}[1]{%
+  \cvreadcsvrows{\cvprimaryreader}{#1}{\cvsectiontitlerow}%
+}
+
 \newenvironment{cvnarrative}{%
   \begingroup
   \setlength{\parindent}{1zw}%
@@ -715,7 +723,7 @@
 % \vspace{-5mm}
 \section{\textbf{研究分野}}
 
-\cvnarrativeinput{data/about.tex}
+\cvnarrativeinput{data/about/about.tex}
 \fi
 
 
@@ -831,8 +839,8 @@
 \ifispublicationlist
 \else
 % \vspace{-5mm}
-\section{\textbf{研究紹介 -- LLMに推論を教えるための論理推論コーパス自動生成}}
-\cvnarrativeinput{data/research.FLD.tex}
+\cvrendersectiontitle{data/research/FLD/title.csv}
+\cvnarrativeinput{data/research/FLD/body_text.tex}
 \fi
 
 
