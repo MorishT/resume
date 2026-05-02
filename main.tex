@@ -37,18 +37,18 @@
 
 
 
-
-
-
-
-
-
-
 \newif\ifispublicationlist
 
 % HONOKA
 \ispublicationlistfalse % resume version
 % \ispublicationlisttrue  % publication list version
+
+
+
+
+
+
+
 
 
 
@@ -732,9 +732,14 @@
 
 
 
+\ifispublicationlist
+\else
+% \vspace{-5mm}
 \section{\textbf{学歴}}
-
 \cvrendereducation{data/education.csv}
+\fi
+
+
 
 
 
