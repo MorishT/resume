@@ -695,6 +695,12 @@
   }{}%
 }
 
+\newcommand{\cvrenderresearchsection}[1]{%
+  \cvrendersectiontitle{data/research/#1/title.csv}%
+  \cvnarrativeinput{data/research/#1/body.tex}%
+  \cvresearchfigure{data/research/#1/main.pdf}%
+}
+
 \newenvironment{cvnarrative}{%
   \begingroup
   \setlength{\parindent}{1zw}%
@@ -847,8 +853,12 @@
 \ifispublicationlist
 \else
 % \vspace{-5mm}
-\cvrendersectiontitle{data/research/FLD/title.csv}
-\cvnarrativeinput{data/research/FLD/body.tex}
+\cvrenderresearchsection{FLD}
+\cvrenderresearchsection{ensemble}
+\cvrenderresearchsection{economic_simulation}
+\cvrenderresearchsection{competition}
+\cvrenderresearchsection{debate}
+\cvrenderresearchsection{dark_matter}
 \fi
 
 
