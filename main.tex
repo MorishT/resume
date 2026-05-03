@@ -687,6 +687,14 @@
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cvsectiontitlerow}%
 }
 
+\newcommand{\cvresearchfigure}[1]{%
+  \IfFileExists{#1}{%
+    \par\medskip
+    \noindent\includegraphics[width=\linewidth]{#1}%
+    \par
+  }{}%
+}
+
 \newenvironment{cvnarrative}{%
   \begingroup
   \setlength{\parindent}{1zw}%
