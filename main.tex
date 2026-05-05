@@ -99,6 +99,8 @@
   url=false,
   eprint=false
 ]{biblatex}
+\DeclareDatamodelFields[type=field,datatype=literal]{research_topics}
+\DeclareDatamodelEntryfields{research_topics}
 \addbibresource{data/publications.bib}
 \renewcommand*{\finentrypunct}{}
 \DeclareFieldFormat{cvpubplain}{#1}
@@ -454,7 +456,7 @@
 \bool_new:N \l_cvpub_selected_bool
 \bool_new:N \l_cvpub_match_bool
 \bool_new:N \l_cvpub_show_authors_bool
-\tl_new:N \l_cvresearchpub_keyword_tl
+\tl_new:N \l_cvresearchpub_topic_tl
 
 \msg_new:nnn { cvpub } { unknown-label }
   { Unknown~publication~label~'#1'. }
@@ -483,6 +485,13 @@
     \ifkeyword{#1}
       { \bool_set_false:N \l_cvpub_match_bool }
       {}
+  }
+
+\cs_new_protected:Npn \cvpub_require_research_topic:n #1
+  {
+    \iffieldequalstr{research_topics}{#1}
+      {}
+      { \bool_set_false:N \l_cvpub_match_bool }
   }
 
 \cs_new_protected:Npn \cvpub_apply_label:n #1
@@ -549,7 +558,7 @@
 \defbibcheck{cvresearchpubfilter}
   {
     \bool_set_true:N \l_cvpub_match_bool
-    \exp_args:NV \cvpub_require_keyword:n \l_cvresearchpub_keyword_tl
+    \exp_args:NV \cvpub_require_research_topic:n \l_cvresearchpub_topic_tl
     \cvpub_require_keyword:n {selected}
     \cvpub_require_not_keyword:n {talk}
     \cvpub_require_not_keyword:n {media}
@@ -580,7 +589,7 @@
   {
     \group_begin:
       \keys_set:nn { cvpub } { show-authors = false }
-      \tl_set:Nn \l_cvresearchpub_keyword_tl {#1}
+      \tl_set:Nn \l_cvresearchpub_topic_tl {#1}
       \newrefcontext[sorting=ydnt]
       \printbibliography[heading=none, env=cvpublist, check=cvresearchpubfilter]
     \group_end:
@@ -726,7 +735,7 @@
 
 \newcommand{\cvrenderresearchpublications}[1]{%
   \par\vspace{6mm}%
-  {\bfseries 代表論文}\par
+  {\bfseries 既存発表}\par
   \vspace{1mm}%
   \printresearchpublicationbibliography{#1}%
 }
@@ -893,7 +902,7 @@
 % \vspace{-5mm}
 \newpage
 \cvresearchgrouptitle
-\cvrenderresearchsection{FLD}
+\cvrenderresearchsection{fld}
 
 \newpage
 \cvrenderresearchsection{ensemble}
