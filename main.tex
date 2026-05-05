@@ -680,11 +680,16 @@
 }
 
 \def\cvsectiontitlerow#1\cvcsvend{%
-  \section{\textbf{研究紹介 -- #1}}%
+  \section{\textbf{#1}}%
 }
 
 \newcommand{\cvrendersectiontitle}[1]{%
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cvsectiontitlerow}%
+}
+
+\newcommand{\cvresearchgrouptitle}{%
+  {\namefont\textcolor{color0}{研究紹介}\par}%
+  \vspace{5mm}%
 }
 
 \newcommand{\cvresearchfigure}[1]{%
@@ -855,6 +860,7 @@
 \else
 % \vspace{-5mm}
 \newpage
+\cvresearchgrouptitle
 \cvrenderresearchsection{FLD}
 
 \newpage
