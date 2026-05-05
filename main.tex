@@ -454,6 +454,7 @@
 \bool_new:N \l_cvpub_selected_bool
 \bool_new:N \l_cvpub_match_bool
 \bool_new:N \l_cvpub_show_authors_bool
+\tl_new:N \l_cvresearchpub_keyword_tl
 
 \msg_new:nnn { cvpub } { unknown-label }
   { Unknown~publication~label~'#1'. }
@@ -545,6 +546,19 @@
       { \skipentry }
   }
 
+\defbibcheck{cvresearchpubfilter}
+  {
+    \bool_set_true:N \l_cvpub_match_bool
+    \exp_args:NV \cvpub_require_keyword:n \l_cvresearchpub_keyword_tl
+    \cvpub_require_keyword:n {selected}
+    \cvpub_require_not_keyword:n {talk}
+    \cvpub_require_not_keyword:n {media}
+    \cvpub_require_not_keyword:n {blog}
+    \cvpub_require_not_keyword:n {oss}
+    \bool_if:NF \l_cvpub_match_bool
+      { \skipentry }
+  }
+
 \NewDocumentCommand{\printpublicationbibliography}{ O{} }
   {
     \group_begin:
@@ -559,6 +573,16 @@
       \keys_set:nn { cvpub } { #1 }
       \newrefcontext[sorting=none]
       \printbibliography[heading=none, env=cvpublist, check=cvpubfilter]
+    \group_end:
+  }
+
+\NewDocumentCommand{\printresearchpublicationbibliography}{ m }
+  {
+    \group_begin:
+      \keys_set:nn { cvpub } { show-authors = false }
+      \tl_set:Nn \l_cvresearchpub_keyword_tl {#1}
+      \newrefcontext[sorting=ydnt]
+      \printbibliography[heading=none, env=cvpublist, check=cvresearchpubfilter]
     \group_end:
   }
 
@@ -700,11 +724,19 @@
   }{}%
 }
 
+\newcommand{\cvrenderresearchpublications}[1]{%
+  \par\vspace{6mm}%
+  {\bfseries 代表論文}\par
+  \vspace{1mm}%
+  \printresearchpublicationbibliography{#1}%
+}
+
 \newcommand{\cvrenderresearchsection}[1]{%
   \cvrendersectiontitle{data/research/#1/title.csv}%
   \vspace{1mm}%
   \cvnarrativeinput{data/research/#1/body.tex}%
   \cvresearchfigure{data/research/#1/main.pdf}%
+  \cvrenderresearchpublications{#1}%
 }
 
 \newenvironment{cvnarrative}{%
