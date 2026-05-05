@@ -679,8 +679,39 @@
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cvawardrow}%
 }
 
+\newlength{\cvresearchtitleprefixwidth}
+\newcommand{\cvresearchtitleprefix}{研究紹介 -- }
+\AtBeginDocument{%
+  \settowidth{\cvresearchtitleprefixwidth}{{\sectionfont\bfseries \cvresearchtitleprefix}}%
+}
+
+\ExplSyntaxOn
+\tl_new:N \l_cvresearchtitle_tl
+\cs_new_protected:Npn \cvresearchtitle:n #1
+  {
+    \tl_set:Nn \l_cvresearchtitle_tl {#1}
+    \tl_replace_all:Nnx \l_cvresearchtitle_tl {//}
+      { \exp_not:N \linebreak }
+    \group_begin:
+      \bfseries
+      \hangindent=\cvresearchtitleprefixwidth
+      \hangafter=1
+      \cvresearchtitleprefix \tl_use:N \l_cvresearchtitle_tl
+    \group_end:
+  }
+\cs_new:Npn \cvresearchtitle_plain:n #1
+  {
+    \tl_set:Nn \l_cvresearchtitle_tl {#1}
+    \tl_replace_all:Nnn \l_cvresearchtitle_tl {//} { \c_space_tl }
+    \cvresearchtitleprefix \tl_use:N \l_cvresearchtitle_tl
+  }
+\ExplSyntaxOff
+
+\DeclareRobustCommand{\cvresearchtitle}[1]{\cvresearchtitle:n{#1}}
+\DeclareRobustCommand{\cvresearchtitleplain}[1]{\cvresearchtitle_plain:n{#1}}
+
 \def\cvsectiontitlerow#1\cvcsvend{%
-  \section{\textbf{研究紹介 -- #1}}%
+  \section{\texorpdfstring{\cvresearchtitle{#1}}{\cvresearchtitleplain{#1}}}%
 }
 
 \newcommand{\cvrendersectiontitle}[1]{%
