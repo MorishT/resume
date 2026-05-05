@@ -679,41 +679,8 @@
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cvawardrow}%
 }
 
-\newlength{\cvresearchtitleprefixwidth}
-\newcommand{\cvresearchtitleprefix}{研究紹介 -- }
-\AtBeginDocument{%
-  \settowidth{\cvresearchtitleprefixwidth}{\sectionstyle{\textbf{\cvresearchtitleprefix}}}%
-}
-
-\ExplSyntaxOn
-\tl_new:N \l_cvresearchtitle_tl
-\cs_new_protected:Npn \cvresearchtitle:n #1
-  {
-    \tl_set:Nn \l_cvresearchtitle_tl {#1}
-    \tl_replace_all:Nnn \l_cvresearchtitle_tl {//} { \linebreak }
-    \noindent
-    \hangindent=\cvresearchtitleprefixwidth
-    \hangafter=1
-    \textbf{\cvresearchtitleprefix \tl_use:N \l_cvresearchtitle_tl}
-  }
-\ExplSyntaxOff
-
-\newcommand{\cvresearchtitle}[1]{%
-  \csname cvresearchtitle:n\endcsname{#1}%
-}
-
-\makeatletter
-\newcommand{\cvresearchsectionheading}[1]{%
-  \par\addvspace{2.5ex}%
-  \parbox[t]{\hintscolumnwidth}{\strut\raggedleft\raisebox{\baseletterheight}{\color{color1}\rule{\hintscolumnwidth}{0.95ex}}}%
-  \hspace{\separatorcolumnwidth}%
-  \parbox[t]{\maincolumnwidth}{\strut\sectionstyle{\cvresearchtitle{#1}}}%
-  \par\nobreak\addvspace{1ex}\@afterheading%
-}
-\makeatother
-
 \def\cvsectiontitlerow#1\cvcsvend{%
-  \cvresearchsectionheading{#1}%
+  \section{\textbf{研究紹介 -- #1}}%
 }
 
 \newcommand{\cvrendersectiontitle}[1]{%
