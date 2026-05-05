@@ -99,6 +99,13 @@
   url=false,
   eprint=false
 ]{biblatex}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \step[fieldsource=research_topics, fieldtarget=userb]
+    }
+  }
+}
 \DeclareDatamodelFields[type=field,datatype=literal]{research_topics}
 \DeclareDatamodelEntryfields{research_topics}
 \addbibresource{data/publications.bib}
@@ -489,7 +496,7 @@
 
 \cs_new_protected:Npn \cvpub_require_research_topic:n #1
   {
-    \iffieldequalstr{research_topics}{#1}
+    \iffieldequalstr{userb}{#1}
       {}
       { \bool_set_false:N \l_cvpub_match_bool }
   }
