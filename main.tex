@@ -423,6 +423,9 @@
   \iffieldundef{note}
     {}
     {\space\cvpubformatnote{\printfield{note}}}%
+  \iffieldundef{addendum}
+    {}
+    {\space\printfield{addendum}}%
   \iffieldundef{usera}
     {}
     {\space\printfield{usera}}%
@@ -445,6 +448,9 @@
   \iffieldundef{note}
     {}
     {\space\cvpubformatnote{\printfield[cvpubplain]{note}}}%
+  \iffieldundef{addendum}
+    {}
+    {\space\printfield[cvpubplain]{addendum}}%
   \iffieldundef{usera}
     {}
     {\space\printfield{usera}}%
