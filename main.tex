@@ -106,6 +106,26 @@
 \DeclareFieldFormat{usera}{(採択率#1)}
 \newcommand{\cvpubformatnote}[1]{\textcolor{red}{#1}}
 
+\DeclareSortingTemplate{cvresearch}{
+  \sort[direction=descending]{
+    \field{research_scope}
+  }
+  \sort[direction=descending]{
+    \field{sortyear}
+    \field{year}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+  }
+  \sort{
+    \field{sorttitle}
+    \field{title}
+  }
+}
+
 
 
 
@@ -589,7 +609,7 @@
     \group_begin:
       \keys_set:nn { cvpub } { show-authors = false }
       \tl_set:Nn \l_cvresearchpub_topic_tl {#1}
-      \newrefcontext[sorting=ydnt]
+      \newrefcontext[sorting=cvresearch]
       \printbibliography[heading=none, env=cvpublist, check=cvresearchpubfilter]
     \group_end:
   }
