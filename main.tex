@@ -701,21 +701,15 @@
   \else
     \read\cvtertiaryreader to \cvcurrentline
     \edef\cvsinglefilevalue{\cvcurrentline}%
-    \ifeof\cvtertiaryreader
-      \expandafter\def\expandafter#2\expandafter{\cvsinglefilevalue}%
-    \else
-      \read\cvtertiaryreader to \cvcurrentline
-      \edef\cvsinglefilevalue{\cvcurrentline}%
-      \expandafter\def\expandafter#2\expandafter{\cvsinglefilevalue}%
-    \fi
+    \expandafter\def\expandafter#2\expandafter{\cvsinglefilevalue}%
   \fi
   \closein\cvtertiaryreader
 }
 
 \newcommand{\cvrenderresearchworkitem}[1]{%
-  \IfFileExists{data/research_topics/#1/tldr.csv}{%
-    \cvreadsinglevalue{data/research_topics/#1/title.csv}{\cvresearchtitlevalue}%
-    \cvreadsinglevalue{data/research_topics/#1/tldr.csv}{\cvresearchsummaryvalue}%
+  \IfFileExists{data/research_topics/#1/tldr.txt}{%
+    \cvreadsinglevalue{data/research_topics/#1/title.txt}{\cvresearchtitlevalue}%
+    \cvreadsinglevalue{data/research_topics/#1/tldr.txt}{\cvresearchsummaryvalue}%
     \cventry{}{\cvresearchtitlevalue}{}{}{}{\cvsmallitem{\cvresearchsummaryvalue}}%
   }{}%
 }
@@ -780,12 +774,9 @@
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cvawardrow}%
 }
 
-\def\cvsectiontitlerow#1\cvcsvend{%
-  \section{\textbf{#1}}%
-}
-
 \newcommand{\cvrendersectiontitle}[1]{%
-  \cvreadcsvrows{\cvprimaryreader}{#1}{\cvsectiontitlerow}%
+  \cvreadsinglevalue{#1}{\cvresearchtitlevalue}%
+  \section{\textbf{\cvresearchtitlevalue}}%
 }
 
 \newcommand{\cvresearchgrouptitle}{%
@@ -809,7 +800,7 @@
 }
 
 \newcommand{\cvrenderresearchsection}[1]{%
-  \cvrendersectiontitle{data/research_topics/#1/title.csv}%
+  \cvrendersectiontitle{data/research_topics/#1/title.txt}%
   \vspace{1mm}%
   \cvnarrativeinput{data/research_topics/#1/body.tex}%
   \cvresearchfigure{data/research_topics/#1/main.pdf}%
