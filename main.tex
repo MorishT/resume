@@ -713,9 +713,9 @@
 }
 
 \newcommand{\cvrenderresearchworkitem}[1]{%
-  \IfFileExists{data/research/#1/tldr.csv}{%
-    \cvreadsinglevalue{data/research/#1/title.csv}{\cvresearchtitlevalue}%
-    \cvreadsinglevalue{data/research/#1/tldr.csv}{\cvresearchsummaryvalue}%
+  \IfFileExists{data/research_topics/#1/tldr.csv}{%
+    \cvreadsinglevalue{data/research_topics/#1/title.csv}{\cvresearchtitlevalue}%
+    \cvreadsinglevalue{data/research_topics/#1/tldr.csv}{\cvresearchsummaryvalue}%
     \cventry{}{\cvresearchtitlevalue}{}{}{}{\cvsmallitem{\cvresearchsummaryvalue}}%
   }{}%
 }
@@ -809,16 +809,16 @@
 }
 
 \newcommand{\cvrenderresearchsection}[1]{%
-  \cvrendersectiontitle{data/research/#1/title.csv}%
+  \cvrendersectiontitle{data/research_topics/#1/title.csv}%
   \vspace{1mm}%
-  \cvnarrativeinput{data/research/#1/body.tex}%
-  \cvresearchfigure{data/research/#1/main.pdf}%
+  \cvnarrativeinput{data/research_topics/#1/body.tex}%
+  \cvresearchfigure{data/research_topics/#1/main.pdf}%
   \cvrenderresearchpublications{#1}%
 }
 
 \newif\ifcvresearchfirstsection
 \newcommand{\cvrenderresearchsectionifbody}[1]{%
-  \IfFileExists{data/research/#1/body.tex}{%
+  \IfFileExists{data/research_topics/#1/body.tex}{%
     \ifcvresearchfirstsection
       \cvresearchfirstsectionfalse
     \else
