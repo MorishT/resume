@@ -648,12 +648,13 @@
 
 \newread\cvprimaryreader
 \newread\cvsecondaryreader
+\newread\cvtertiaryreader
 \newcommand{\cvcsvend}{}
 \newcommand{\cvcurrentline}{}
-\newcommand{\cvworkprojectsfile}{}
-\newcommand{\cvtargetposition}{}
-\newcommand{\cvpositionid}{}
 \newcommand{\cvthesisvalue}{}
+\newcommand{\cvsinglefilevalue}{}
+\newcommand{\cvresearchtitlevalue}{}
+\newcommand{\cvresearchsummaryvalue}{}
 \def\cvpar{\par}
 
 \newcommand{\cvreadcsvrowsloop}[2]{%
@@ -693,25 +694,59 @@
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cveducationrow}%
 }
 
-\def\cvworkprojectrow#1,#2,#3,#4\cvcsvend{%
-  \def\cvpositionid{#1}%
-  \ifx\cvpositionid\cvtargetposition
-    \cventry{}{#3}{}{}{}{\cvsmallitem{#4}}%
+\newcommand{\cvreadsinglevalue}[2]{%
+  \def#2{}%
+  \openin\cvtertiaryreader=#1\relax
+  \ifeof\cvtertiaryreader
+  \else
+    \read\cvtertiaryreader to \cvcurrentline
+    \edef\cvsinglefilevalue{\cvcurrentline}%
+    \ifeof\cvtertiaryreader
+      \expandafter\def\expandafter#2\expandafter{\cvsinglefilevalue}%
+    \else
+      \read\cvtertiaryreader to \cvcurrentline
+      \edef\cvsinglefilevalue{\cvcurrentline}%
+      \expandafter\def\expandafter#2\expandafter{\cvsinglefilevalue}%
+    \fi
   \fi
+  \closein\cvtertiaryreader
 }
 
-\newcommand{\cvrenderworkprojects}[2]{%
-  \def\cvtargetposition{#2}%
-  \cvreadcsvrows{\cvsecondaryreader}{#1}{\cvworkprojectrow}%
+\newcommand{\cvrenderresearchworkitem}[1]{%
+  \IfFileExists{data/research/#1/tldr.csv}{%
+    \cvreadsinglevalue{data/research/#1/title.csv}{\cvresearchtitlevalue}%
+    \cvreadsinglevalue{data/research/#1/tldr.csv}{\cvresearchsummaryvalue}%
+    \cventry{}{\cvresearchtitlevalue}{}{}{}{\cvsmallitem{\cvresearchsummaryvalue}}%
+  }{}%
+}
+
+\newcommand{\cvrenderworkprojectsforposition}[1]{%
+  \def\cvsinglefilevalue{#1}%
+  \ifx\cvsinglefilevalue\empty
+  \else
+    \def\cvpositionlabel{hitachi}%
+    \ifx\cvsinglefilevalue\cvpositionlabel
+      \cvrenderresearchworkitem{FLD}%
+      \cvrenderresearchworkitem{ensemble}%
+      \cvrenderresearchworkitem{economic_simulation}%
+      \cvrenderresearchworkitem{competition}%
+      \cvrenderresearchworkitem{debate}%
+      \cvrenderresearchworkitem{NLP_applications}%
+    \else
+      \def\cvpositionlabel{toshiba}%
+      \ifx\cvsinglefilevalue\cvpositionlabel
+        \cvrenderresearchworkitem{speech_recognition}%
+      \fi
+    \fi
+  \fi
 }
 
 \def\cvworkpositionrow#1,#2,#3,#4\cvcsvend{%
   \cvsubsection{#3}{#4}%
-  \cvrenderworkprojects{\cvworkprojectsfile}{#1}%
+  \cvrenderworkprojectsforposition{#1}%
 }
 
-\newcommand{\cvrenderworkexperience}[2]{%
-  \def\cvworkprojectsfile{#2}%
+\newcommand{\cvrenderworkexperience}[1]{%
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cvworkpositionrow}%
 }
 
@@ -781,6 +816,18 @@
   \cvrenderresearchpublications{#1}%
 }
 
+\newif\ifcvresearchfirstsection
+\newcommand{\cvrenderresearchsectionifbody}[1]{%
+  \IfFileExists{data/research/#1/body.tex}{%
+    \ifcvresearchfirstsection
+      \cvresearchfirstsectionfalse
+    \else
+      \newpage
+    \fi
+    \cvrenderresearchsection{#1}%
+  }{}%
+}
+
 \newenvironment{cvnarrative}{%
   \begingroup
   \setlength{\parindent}{1zw}%
@@ -846,7 +893,7 @@
 \ifispublicationlist
 \else
 \section{\textbf{職歴}}
-\cvrenderworkexperience{data/work_positions.csv}{data/work_projects.csv}
+\cvrenderworkexperience{data/work_positions.csv}
 \fi
 
 
@@ -933,25 +980,17 @@
 \ifispublicationlist
 \else
 % \vspace{-5mm}
+\cvresearchfirstsectiontrue
 \newpage
 \cvresearchgrouptitle
-\cvrenderresearchsection{FLD}
-
-\newpage
-\cvrenderresearchsection{ensemble}
-
-
-\newpage
-\cvrenderresearchsection{competition}
-
-
-\newpage
-\cvrenderresearchsection{economic_simulation}
-
-% \cvrenderresearchsection{debate}
-
-\newpage
-\cvrenderresearchsection{dark_matter}
+\cvrenderresearchsectionifbody{FLD}
+\cvrenderresearchsectionifbody{ensemble}
+\cvrenderresearchsectionifbody{competition}
+\cvrenderresearchsectionifbody{economic_simulation}
+\cvrenderresearchsectionifbody{NLP_applications}
+\cvrenderresearchsectionifbody{speech_recognition}
+\cvrenderresearchsectionifbody{debate}
+\cvrenderresearchsectionifbody{dark_matter}
 \fi
 
 
