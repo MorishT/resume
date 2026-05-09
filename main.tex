@@ -737,10 +737,20 @@
   \closein#1
 }
 
-\ExplSyntaxOn
-\cs_set_protected:Npn \cvrendereducation #1
-  { \cvdata_render_education:n {#1} }
-\ExplSyntaxOff
+\def\cveducationrow#1,#2,#3,#4,#5,#6,#7\cvcsvend{%
+  \def\cvthesisvalue{#7}%
+  \cventry{#2}{#3}{#4}{}{}{%
+    研究分野: #5 \quad 指導教員: #6%
+    \if\relax\detokenize{#7}\relax
+    \else
+      \\#7%
+    \fi
+  }%
+}
+
+\newcommand{\cvrendereducation}[1]{%
+  \cvreadcsvrows{\cvprimaryreader}{#1}{\cveducationrow}%
+}
 
 \newcommand{\cvreadsinglevalue}[2]{%
   \def#2{}%
@@ -783,13 +793,22 @@
   \fi
 }
 
-\ExplSyntaxOn
-\cs_set_protected:Npn \cvrenderworkexperience #1
-  { \cvdata_render_work_experience:n {#1} }
+\def\cvworkpositionrow#1,#2,#3,#4\cvcsvend{%
+  \cvsubsection{#3}{#4}%
+  \cvrenderworkprojectsforposition{#1}%
+}
 
-\cs_set_protected:Npn \cvrenderacademicservice #1
-  { \cvdata_render_academic_service:n {#1} }
-\ExplSyntaxOff
+\newcommand{\cvrenderworkexperience}[1]{%
+  \cvreadcsvrows{\cvprimaryreader}{#1}{\cvworkpositionrow}%
+}
+
+\def\cvacademicservicerow#1,#2,#3\cvcsvend{%
+  \cventry{}{#2}{}{}{}{\cvsmallitem{#3}}%
+}
+
+\newcommand{\cvrenderacademicservice}[1]{%
+  \cvreadcsvrows{\cvprimaryreader}{#1}{\cvacademicservicerow}%
+}
 
 \makeatletter
 \newcommand{\cvawardformat}[1]{%
@@ -909,7 +928,7 @@
 \else
 % \vspace{-5mm}
 \section{\textbf{学歴}}
-\cvrendereducation{data/education.csv}
+\cvrendereducation{data/education_jp.csv}
 \fi
 
 
@@ -926,7 +945,7 @@
 \ifispublicationlist
 \else
 \section{\textbf{職歴}}
-\cvrenderworkexperience{data/work_positions.csv}
+\cvrenderworkexperience{data/work_positions_jp.csv}
 \fi
 
 
@@ -1001,7 +1020,7 @@
 
 \ifshowacademicservice
 \section{\textbf{学術貢献活動}}
-\cvrenderacademicservice{data/academic_service.csv}
+\cvrenderacademicservice{data/academic_service_jp.csv}
 \fi
 
 
