@@ -850,6 +850,14 @@
   }{}%
 }
 
+\newcommand{\cvresearchfigureforlanguage}[1]{%
+  \ifcvjapanese
+    \cvresearchfigure{data/research_topics/#1/jp/main.pdf}%
+  \else
+    \cvresearchfigure{data/research_topics/#1/en/main.pdf}%
+  \fi
+}
+
 \newcommand{\cvrenderresearchpublications}[1]{%
   \par\vspace{6mm}%
   {\bfseries 既存発表}\par
@@ -870,7 +878,7 @@
   \vspace{1mm}%
   \cvrenderresearchtldr{#1}%
   \cvnarrativeinput{data/research_topics/#1/jp/body.tex}%
-  \cvresearchfigure{data/research_topics/#1/jp/main.pdf}%
+  \cvresearchfigureforlanguage{#1}%
   \cvrenderresearchpublications{#1}%
 }
 
