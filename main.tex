@@ -935,10 +935,12 @@
 
 \ifispublicationlist
 \else
-% \vspace{-5mm}
-\section{\textbf{学歴}}
-\cvrendereducation{data/education_jp.csv}
+\vspace{-15mm}
+\section{\textbf{職務要約}}
+
 \fi
+
+
 
 
 
@@ -957,6 +959,20 @@
 \section{\textbf{職歴}}
 \cvrenderworkexperience{data/work_positions_jp.csv}
 \fi
+
+
+
+
+
+
+\ifispublicationlist
+\else
+% \vspace{-5mm}
+\section{\textbf{学歴}}
+\cvrendereducation{data/education_jp.csv}
+\fi
+
+
 
 
 
@@ -1038,6 +1054,7 @@
 
 
 
+\newpage
 
 \ifispublicationlist
 \else
