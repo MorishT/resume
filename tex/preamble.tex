@@ -134,8 +134,9 @@
 
 \providecommand{\cvdocumenttitle}{職務経歴書}
 \providecommand{\cvpublicationsectiontitle}{主要な論文・発表}
+\providecommand{\cvpublicationlistdocumenttitle}{業績リスト}
 \ifispublicationlist
-  \renewcommand{\cvdocumenttitle}{業績リスト}
+  \renewcommand{\cvdocumenttitle}{\cvpublicationlistdocumenttitle}
   \renewcommand{\cvpublicationsectiontitle}{論文・発表}
 \fi
 \newcommand{\cvprintmainpublications}[1]{%
