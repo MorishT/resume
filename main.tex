@@ -132,7 +132,7 @@
 
 
 \newcommand{\cvdocumenttitle}{職務経歴書}
-\newcommand{\cvpublicationsectiontitle}{論文・発表 (一部のみ抜粋)}
+\newcommand{\cvpublicationsectiontitle}{主要な論文・発表}
 \ifispublicationlist
   \renewcommand{\cvdocumenttitle}{業績リスト}
   \renewcommand{\cvpublicationsectiontitle}{論文・発表}
@@ -206,7 +206,7 @@
  
 %\social{github}{stefano-bragaglia}
 % \email{pratikabc@gmail.com} 
-\email{terufumi.morishita.wp [AT] hitachi.com} 
+\email{terufumi.morishita.wp@hitachi.com} 
 
 
 
@@ -840,12 +840,10 @@
 \newcommand{\cvresearchgrouptitle}{%
   \hypertarget{cvresearchtopics}{}%
   {\namefont\textcolor{color0}{研究紹介}\par}%
-  \vspace{5mm}%
 }
 
 \newcommand{\cvresearchfigure}[1]{%
   \IfFileExists{#1}{%
-    \par\vspace{10mm}
     \noindent\includegraphics[width=\linewidth]{#1}%
     \par
   }{}%
@@ -860,9 +858,7 @@
 }
 
 \newcommand{\cvrenderresearchpublications}[1]{%
-  \par\vspace{6mm}%
   {\bfseries 既存発表}\par
-  \vspace{1mm}%
   \printresearchpublicationbibliography{#1}%
 }
 
@@ -870,16 +866,16 @@
   \IfFileExists{data/research_topics/#1/jp/tldr.txt}{%
     \cvreadsinglevalue{data/research_topics/#1/jp/tldr.txt}{\cvresearchsummaryvalue}%
     {\bfseries \cvresearchsummaryvalue\par}%
-    \vspace{3mm}%
   }{}%
 }
 
 \newcommand{\cvrenderresearchsection}[1]{%
   \cvrendersectiontitle{data/research_topics/#1/jp/title.txt}%
-  \vspace{1mm}%
   \cvrenderresearchtldr{#1}%
   \cvnarrativeinput{data/research_topics/#1/jp/body.tex}%
+  \vspace{5mm}
   \cvresearchfigureforlanguage{#1}%
+  \vspace{5mm}
   \cvrenderresearchpublications{#1}%
 }
 
@@ -922,7 +918,6 @@
 
 \ifispublicationlist
 \else
-\vspace{-15mm}
 \section{\textbf{研究分野}}
 
 \cvnarrativeinput{data/about/about.tex}
@@ -942,15 +937,6 @@
 
 
 
-\ifispublicationlist
-\else
-\vspace{-15mm}
-\section{\textbf{職務要約}}
-
-\fi
-
-
-
 
 
 
@@ -964,8 +950,8 @@
 
 \ifispublicationlist
 \else
-\vspace{-5mm}
 \section{\textbf{職歴}}
+以下の研究テーマはいずれも、プロジェクトの立ち上げ、手法の着想、開発、実験、特許出願、論文執筆・対外発表まで、研究の全工程を一貫して担当。
 \cvrenderworkexperience{data/work_positions_jp.csv}
 \fi
 
@@ -976,7 +962,6 @@
 
 \ifispublicationlist
 \else
-% \vspace{-5mm}
 \section{\textbf{学歴}}
 \cvrendereducation{data/education_jp.csv}
 \fi
@@ -1067,7 +1052,6 @@
 
 \ifispublicationlist
 \else
-% \vspace{-5mm}
 
 \cvresearchgrouptitle
 \cvrenderresearchsectionifbody{FLD}
