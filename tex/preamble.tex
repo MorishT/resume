@@ -168,11 +168,7 @@
 \familyname{\ifcvjapanese 森下\else Morishita\fi} % Your last name
 
 \newcommand{\cvdisplayname}{%
-  \ifcvjapanese
-    {\color{black}\@familyname} {\color{black}\@firstname}%
-  \else
-    {\color{black}\@firstname} {\color{black}\@familyname}%
-  \fi
+  {\color{black}\cvdocumenttitle}%
 }
 
 % \newcommand{\cvtitlename}{%
@@ -195,7 +191,7 @@
 
 % All information in this block is optional, comment out any lines you don't need
 % \title{\cvtitlename}
-\title{\cvdocumenttitle}
+\title{}
 % \address{Department of CSE}{Indian Institute of Technology xyz}
 \ifispublicationlist
 \else
@@ -840,7 +836,7 @@
 
 \newcommand{\cvresearchgrouptitle}{%
   \hypertarget{cvresearchtopics}{}%
-  {\namefont\textcolor{color0}{研究紹介}\par}%
+  {\namefont\textcolor{color0}{研究テーマ}\par}%
 }
 
 \newcommand{\cvresearchfigure}[1]{%
