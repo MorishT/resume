@@ -13,9 +13,8 @@
 % CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
 %
 % Important note:
-% This template requires the moderncv.cls and .sty files to be in the same 
-% directory as this .tex file. These files provide the resume style and themes 
-% used for structuring the document.
+% The moderncv.cls and .sty files are stored under tex/moderncv and are loaded
+% through the input path configured by the document entry files and latexmkrc.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -39,9 +38,11 @@
 
 \newif\ifispublicationlist
 
-% HONOKA
-\ispublicationlistfalse % resume version
-% \ispublicationlisttrue  % publication list version
+\ifdefined\cvpublicationlistmode
+  \ispublicationlisttrue
+\else
+  \ispublicationlistfalse
+\fi
 
 
 
@@ -131,8 +132,8 @@
 
 
 
-\newcommand{\cvdocumenttitle}{職務経歴書}
-\newcommand{\cvpublicationsectiontitle}{主要な論文・発表}
+\providecommand{\cvdocumenttitle}{職務経歴書}
+\providecommand{\cvpublicationsectiontitle}{主要な論文・発表}
 \ifispublicationlist
   \renewcommand{\cvdocumenttitle}{業績リスト}
   \renewcommand{\cvpublicationsectiontitle}{論文・発表}
@@ -226,7 +227,7 @@
 %\social[linkedin][www.linkedin.com]{name}
 % The first argument is %the url for the clickable link, the second argument is the url displayed in the %template - this allows special characters to be displayed such as the tilde in this %example
 
-% \photo[70pt][0.3pt]{picture} % The first bracket is the picture height, the second is %the thickness of the frame around the picture (0pt for no frame)
+% \photo[70pt][0.3pt]{assets/picture.jpg} % The first bracket is the picture height, the second is %the thickness of the frame around the picture (0pt for no frame)
 %\quote{Not Attention, Patience is all we need.}
 
 %----------------------------------------------------------------------------------------
@@ -909,252 +910,3 @@
 %     \ifthenelse{\equal{#5}{}}{}{#5\newline}%
 %     \ifthenelse{\equal{#6}{}}{}{\emailsymbol~\texttt{#6}\newline}%
 %     \ifthenelse{\equal{#7}{}}{}{\phonesymbol~#7}}
-
-\begin{document}
-
-\nocite{*}
-\makecvtitle % Print the CV title
-
-
-\ifispublicationlist
-\else
-\section{\textbf{研究分野}}
-
-\cvnarrativeinput{data/about/about.tex}
-\fi
-
-
-
-\ifispublicationlist
-\else
-\section{\textbf{職務要約}}
-
-\cvnarrativeinput{data/summary/summary.tex}
-\fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\ifispublicationlist
-\else
-\section{\textbf{職歴}}
-以下の研究テーマはいずれも、研究の全工程を一貫して担当しています。
-具体的には、プロジェクトの立ち上げから、手法の着想、開発、実験、特許出願、論文執筆・対外発表までを担当しています。
-\cvrenderworkexperience{data/work_positions_jp.csv}
-\fi
-
-
-
-
-
-
-\ifispublicationlist
-\else
-\section{\textbf{学歴}}
-\cvrendereducation{data/education_jp.csv}
-\fi
-
-
-
-
-
-
-
-
-
-\section{\textbf{\cvpublicationsectiontitle}}
-
-
-
-
-\cvpubsubsection{論文誌}
-\cvprintmainpublications{journal}
-
-
-
-\cvpubsubsection{国際学会}
-\cvprintmainpublications{international-conference}
-
-
-
-
-
-\cvpubsubsection{国内学会}
-\cvprintmainpublications{domestic-conference}
-
-
-
-
-
-\cvpubsubsection{テックブログ}
-\printpublicationbibliography[labels={blog}]
-
-
-
-\ifispublicationlist
-\cvpubsubsection{arXiv}
-\printpublicationbibliography[labels={arxiv}]
-\fi
-
-
-
-
-
-\section{\textbf{招待講演}}
-\printpublicationbibliographynone[labels={invited-talk}, show-authors=false]
-
-
-
-
-\section{\textbf{受賞}}
-\cvrenderawards{data/awards.csv}
-
-
-
-
-\section{\textbf{プレスリリース・取材・寄稿}}
-\printpublicationbibliography[labels={press}]
-
-
-
-\section{\textbf{OSS}}
-\printpublicationbibliography[labels={oss}]
-
-
-
-
-
-
-
-\ifshowacademicservice
-\section{\textbf{学術貢献活動}}
-\cvrenderacademicservice{data/academic_service_jp.csv}
-\fi
-
-
-
-
-
-
-\newpage
-
-\ifispublicationlist
-\else
-
-\cvresearchgrouptitle
-\cvrenderresearchsectionifbody{FLD}
-
-\newpage
-\cvrenderresearchsectionifbody{debate}
-
-\newpage
-\cvrenderresearchsectionifbody{competition}
-
-\newpage
-\cvrenderresearchsectionifbody{ensemble}
-
-\newpage
-\cvrenderresearchsectionifbody{economic_simulation}
-
-\newpage
-\cvrenderresearchsectionifbody{dark_matter}
-
-\fi
-
-
-
-
-
-
-
-
-% \cvitem{2018}{Invited to conduct lab sessions in \textit{\textbf{"Training Program on Machine Learning For Ocean Acoustics and Climate Data Analysis"}}, during 22-36 October 2018 at \textbf{Defence R\&D Organization- Naval Physical \& Oceanographic Laboratory (DRDO-NPOL), Kochi, Kerala}.}
-% 
-
-
-
-% %----------------------------------------------------------------------------------------
-% %	COMPUTER SKILLS SECTION
-% %----------------------------------------------------------------------------------------
-% 
-% \section{Computer skills}
-% 
-% \cvitem{Programming Languages}{Python, PyTorch, keras, R, C, C++, Advanced JAVA}
-% \cvitem{Web Technologies}{HTML 5, PHP, JSP, Javascript}
-% \cvitem{Database}{SQL, MySQL, Apache, Neo4j}
-
-
-%----------------------------------------------------------------------------------------
-%	Position of Responsibility SECTION
-%----------------------------------------------------------------------------------------
-
-% \section{Position of Responsibility}
-% \cventry{2016-2020}{Executive member of IEEE Student Branch}{}{IIT ABC}{}{}
-% \cventry{April 1-5, 2019}{Organizer, GIAN Workshop on subjects}{}{IIT ABC}{}{}
-
-
-
-
-%----------------------------------------------------------------------------------------
-%	Teaching Assistantship SECTION
-%----------------------------------------------------------------------------------------
-
-% \section{Teaching Assistantship}
-% \cventry{Fall, 2019 :}{CS564: Foundations of Machine Learning}{}{IIT ABC}{}{}
-% \cventry{Spring, 2019 :}{CS342: Operating System Lab}{}{IIT ABC}{}{}
-% \cventry{Fall, 2018 :}{CS564: Foundations of Machine Learning}{}{IIT ABC}{}{}
-
-
-
-% \section{Referees}
-% 
-% 
-% \begin{tabular}{lr}
-% % Referee 1
-% \begin{minipage}[t]{3in}
-% \textbf{Dr. XXXXX XXXXX}\\
-% \textit{Associate Professor, Department of} \\
-% \textit{Computer Science \& Engineering}\\
-% Institute name\\
-% \Letter\ \href{mailto:abc@gmail.com}{abc@gmail.com}
-% \end{minipage}
-% &
-% % Referee 2
-% \begin{minipage}[t]{3in}
-% \textbf{Dr. XXXXX XXXXX}\\
-% \textit{Associate Professor, Department of} \\
-% \textit{Computer Science \& Engineering}\\
-% Institute name\\
-% \Telefon\ +(601) 877-6236\\
-% \Letter\ \href{mailto:abc@gmail.com}{abc@gmail.com}
-% \end{minipage}
-% \\
-% \\ % Additional newline for spacing.
-% % Referee 3
-% \begin{minipage}[t]{3in}
-% \textbf{Dr. XXXXX XXXXX}\\
-% \textit{Associate Professor, Department of} \\
-% \textit{Computer Science \& Engineering}\\
-% Institute name\\
-% \Telefon\ +(601) 877-6236\\
-% \Letter\ \href{mailto:abc@gmail.com}{abc@gmail.com}
-% \end{minipage}
-% &
-% \\
-% \end{tabular}
-
-
-\end{document}
