@@ -670,9 +670,9 @@
         \tl_set:Ne \l_tmpe_tl { \seq_item:Nn \l_cvdata_row_seq { 11 } }
         \tl_set:Ne \l_tmpf_tl { \seq_item:Nn \l_cvdata_row_seq { 13 } }
         \cventry{\l_tmpa_tl}{\l_tmpb_tl}{\l_tmpc_tl}{}{}{%
-          研究分野：\l_tmpd_tl \quad 指導教員：\l_tmpe_tl
+          \cvsmallitem{研究分野：\l_tmpd_tl \quad 指導教員：\l_tmpe_tl}%
           \tl_if_blank:VF \l_tmpf_tl
-            { \\ \l_tmpf_tl }
+            { \cvsmallitem{\l_tmpf_tl} }
         }%
       }
   }
@@ -742,10 +742,10 @@
 \def\cveducationrow#1,#2,#3,#4,#5,#6,#7\cvcsvend{%
   \def\cvthesisvalue{#7}%
   \cventry{#2}{#3}{#4}{}{}{%
-    研究分野：#5 \quad 指導教員：#6%
+    \cvsmallitem{研究分野：#5 \quad 指導教員：#6}%
     \if\relax\detokenize{#7}\relax
     \else
-      \\#7%
+      \cvsmallitem{#7}%
     \fi
   }%
 }
