@@ -104,7 +104,7 @@
 \addbibresource{data/publications.bib}
 \renewcommand*{\finentrypunct}{}
 \DeclareFieldFormat{cvpubplain}{#1}
-\DeclareFieldFormat{usera}{（採択率#1）}
+\DeclareFieldFormat{usera}{(採択率#1)}
 \newcommand{\cvpubformatnote}[1]{\textcolor{red}{#1}}
 
 \DeclareSortingTemplate{cvresearch}{
@@ -193,7 +193,7 @@
 % All information in this block is optional, comment out any lines you don't need
 % \title{\cvtitlename}
 \title{}
-\newcommand{\cvlastcreationdate}{最終作成日：2026年6月24日}
+\newcommand{\cvlastcreationdate}{最終作成日: 2026年6月24日}
 \extrainfo{\cvlastcreationdate}
 
 
@@ -660,7 +660,7 @@
         \tl_set:Ne \l_tmpe_tl { \seq_item:Nn \l_cvdata_row_seq { 11 } }
         \tl_set:Ne \l_tmpf_tl { \seq_item:Nn \l_cvdata_row_seq { 13 } }
         \cventry{\l_tmpa_tl}{\l_tmpb_tl}{\l_tmpc_tl}{}{}{%
-          \cvsmallitem{研究分野：\l_tmpd_tl \quad 指導教員：\l_tmpe_tl}%
+          \cvsmallitem{研究分野: \l_tmpd_tl \quad 指導教員: \l_tmpe_tl}%
           \tl_if_blank:VF \l_tmpf_tl
             { \cvsmallitem{\l_tmpf_tl} }
         }%
@@ -748,7 +748,7 @@
   \let\cvpreviouseducationperiod\cveducationcurrentperiod
   \def\cvthesisvalue{#7}%
   \cventry{#2}{#3}{#4}{}{}{%
-    \cvsmallitem{研究分野：#5 \quad 指導教員：#6}%
+    \cvsmallitem{研究分野: #5 \quad 指導教員: #6}%
     \cvifnonblank{#7}{\cvsmallitem{#7}}%
   }%
 }
@@ -792,7 +792,7 @@
     \cvreadsingletextvalue{data/research_topics/#1/jp/achievements.txt}{\cvresearchachievementvalue}%
     \if\relax\detokenize\expandafter{\cvresearchachievementvalue}\relax
     \else
-      \cvsmallitem{主要成果：\cvresearchachievementvalue}%
+      \cvsmallitem{主要成果: \cvresearchachievementvalue}%
     \fi
   }{}%
 }
@@ -802,11 +802,16 @@
     \cvreadsinglevalue{data/research_topics/#1/jp/title.txt}{\cvresearchtitlevalue}%
     \cvreadsinglevalue{data/research_topics/#1/jp/tldr.txt}{\cvresearchsummaryvalue}%
     \par\addvspace{\cvworkresearchtitlesep}%
-    \cventry{}{\cvresearchtitlevalue}{}{}{}{%
+    \cvresearchworkentry{\cvresearchtitlevalue}{%
       \cvsmallitem{\cvresearchsummaryvalue}%
       \cvrenderresearchachievementitem{#1}%
     }%
   }{}%
+}
+
+\newcommand{\cvresearchworkentry}[2]{%
+  \cvitem{}{{\bfseries#1}\strut\newline{}%
+    \begin{minipage}[t]{\linewidth}\small#2\end{minipage}}%
 }
 
 \newcommand{\cvrenderworkprojectsforposition}[1]{%
