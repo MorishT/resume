@@ -253,10 +253,12 @@
 \newlength{\cvsmallbulletlabelwidth}
 \newlength{\cvsmallbulletlabelsep}
 \newlength{\cvsmallbulletitemsep}
+\newlength{\cvsmallbullettopsep}
 \setlength{\cvsmallbulletleftmargin}{1.4em}
 \setlength{\cvsmallbulletlabelwidth}{0.8em}
 \setlength{\cvsmallbulletlabelsep}{0.4em}
-\setlength{\cvsmallbulletitemsep}{0.2ex}
+\setlength{\cvsmallbulletitemsep}{0.35ex}
+\setlength{\cvsmallbullettopsep}{0.35ex}
 \newcommand{\cvsmallbulletlabel}{%
   \raisebox{\cvsmallbulletraise}{\textcolor{\cvsmallbulletcolor}{{\cvsmallbulletsize\cvsmallbulletsymbol}}}%
 }
@@ -267,7 +269,7 @@
     \setlength{\labelsep}{\cvsmallbulletlabelsep}%
     \setlength{\itemsep}{\cvsmallbulletitemsep}%
     \setlength{\parsep}{0pt}%
-    \setlength{\topsep}{0pt}%
+    \setlength{\topsep}{\cvsmallbullettopsep}%
     \setlength{\partopsep}{0pt}%
   }%
 }{%
