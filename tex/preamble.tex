@@ -915,7 +915,8 @@
 
 \newcommand{\cvresearchgrouptitle}{%
   \hypertarget{cvresearchtopics}{}%
-  {\namefont\textcolor{color0}{研究テーマ}\par}%
+  {\namefont\textcolor{color0}{研究テーマ紹介}\par}%
+  \vspace{5mm}%
 }
 
 \newcommand{\cvresearchfigure}[1]{%
@@ -942,6 +943,7 @@
   \IfFileExists{data/research_topics/#1/jp/tldr.txt}{%
     \cvreadsinglevalue{data/research_topics/#1/jp/tldr.txt}{\cvresearchsummaryvalue}%
     {\bfseries \cvresearchsummaryvalue\par}%
+    \vspace{5mm}%
   }{}%
 }
 
