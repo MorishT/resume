@@ -519,6 +519,12 @@
       {}
   }
 
+\cs_new_protected:Npn \cvpub_require_not_hidden_domestic_excerpt:
+  {
+    \bool_if:NT \l_cvpub_selected_bool
+      { \cvpub_require_not_keyword:n {hide-domestic-conference} }
+  }
+
 \cs_new_protected:Npn \cvpub_require_research_topic:n #1
   {
     \iffieldequalstr{research_topic}{#1}
@@ -538,9 +544,9 @@
         {international-conference} { \cvpub_require_keyword:n {international} }
         {international} { \cvpub_require_keyword:n {international} }
         {国際学会}   { \cvpub_require_keyword:n {international} }
-        {domestic-conference} { \cvpub_require_keyword:n {domestic} \cvpub_require_not_keyword:n {talk} \cvpub_require_not_keyword:n {hide-domestic-conference} }
-        {domestic}   { \cvpub_require_keyword:n {domestic} \cvpub_require_not_keyword:n {talk} \cvpub_require_not_keyword:n {hide-domestic-conference} }
-        {国内学会}   { \cvpub_require_keyword:n {domestic} \cvpub_require_not_keyword:n {talk} \cvpub_require_not_keyword:n {hide-domestic-conference} }
+        {domestic-conference} { \cvpub_require_keyword:n {domestic} \cvpub_require_not_keyword:n {talk} \cvpub_require_not_hidden_domestic_excerpt: }
+        {domestic}   { \cvpub_require_keyword:n {domestic} \cvpub_require_not_keyword:n {talk} \cvpub_require_not_hidden_domestic_excerpt: }
+        {国内学会}   { \cvpub_require_keyword:n {domestic} \cvpub_require_not_keyword:n {talk} \cvpub_require_not_hidden_domestic_excerpt: }
         {arxiv}      { \cvpub_require_keyword:n {arxiv} }
         {arXiv}      { \cvpub_require_keyword:n {arxiv} }
         {invited-talk} { \cvpub_require_keyword:n {talk} }
