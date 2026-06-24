@@ -27,6 +27,11 @@
 \section{\textbf{プレスリリース・取材・寄稿}}
 \printpublicationbibliography[labels={press}]
 
+\ifispublicationlist
+\section{\textbf{OSS}}
+\printpublicationbibliography[labels={OSS}]
+\fi
+
 \ifshowacademicservice
 \section{\textbf{学術貢献活動}}
 \cvrenderacademicservice{data/academic_service_jp.csv}
