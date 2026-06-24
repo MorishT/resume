@@ -4,7 +4,6 @@
 - 学位：博士（工学）
 - 生年月日：1989年11月29日（36歳）
 - 連絡先：terufumi.morishita.wp@hitachi.com
-- Web：
-  - [個人サイト](https://morisht.github.io/MorishT/)
-  - [Google Scholar](https://scholar.google.com/citations?user=DBD9bzYAAAAJ)
-  - [X](https://twitter.com/MorishTr)
+- 個人サイト：https://morisht.github.io/MorishT/
+- Google Scholar：https://scholar.google.com/citations?user=DBD9bzYAAAAJ
+- X：https://twitter.com/MorishTr
