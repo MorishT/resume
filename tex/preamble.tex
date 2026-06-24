@@ -254,11 +254,13 @@
 \newlength{\cvsmallbulletlabelsep}
 \newlength{\cvsmallbulletitemsep}
 \newlength{\cvsmallbullettopsep}
-\setlength{\cvsmallbulletleftmargin}{1.8em}
+\newlength{\cvworkresearchtitlesep}
+\setlength{\cvsmallbulletleftmargin}{2.0em}
 \setlength{\cvsmallbulletlabelwidth}{0.8em}
 \setlength{\cvsmallbulletlabelsep}{0.4em}
 \setlength{\cvsmallbulletitemsep}{0.35ex}
 \setlength{\cvsmallbullettopsep}{0.35ex}
+\setlength{\cvworkresearchtitlesep}{0.6ex}
 \newcommand{\cvsmallbulletlabel}{%
   \raisebox{\cvsmallbulletraise}{\textcolor{\cvsmallbulletcolor}{{\cvsmallbulletsize\cvsmallbulletsymbol}}}%
 }
@@ -796,6 +798,7 @@
   \IfFileExists{data/research_topics/#1/jp/tldr.txt}{%
     \cvreadsinglevalue{data/research_topics/#1/jp/title.txt}{\cvresearchtitlevalue}%
     \cvreadsinglevalue{data/research_topics/#1/jp/tldr.txt}{\cvresearchsummaryvalue}%
+    \par\addvspace{\cvworkresearchtitlesep}%
     \cventry{}{\cvresearchtitlevalue}{}{}{}{%
       \cvsmallitem{\cvresearchsummaryvalue}%
       \cvrenderresearchachievementitem{#1}%
