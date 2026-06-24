@@ -194,7 +194,15 @@
 % \title{\cvtitlename}
 \title{}
 \newcommand{\cvlastcreationdate}{最終作成日: 2026年6月24日}
-\extrainfo{\cvlastcreationdate}
+\providecommand{\cvheadername}{}
+\newcommand{\cvheaderinfo}{%
+  \if\relax\detokenize\expandafter{\cvheadername}\relax
+    \cvlastcreationdate
+  \else
+    \cvheadername\quad \cvlastcreationdate
+  \fi
+}
+\extrainfo{\cvheaderinfo}
 
 
 
