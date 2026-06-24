@@ -300,6 +300,7 @@
 \seq_new:N \l_cvdata_row_seq
 \tl_new:N \l_cvdata_line_tl
 \tl_new:N \l_cvdata_current_position_tl
+\tl_new:N \l_cvdata_optional_field_tl
 
 \cs_new_protected:Npn \cvdata_parse_csv_line:NV #1#2
   {
@@ -635,6 +636,14 @@
     \group_end:
   }
 
+\NewDocumentCommand{\cvifnonblank}{ m m }
+  {
+    \tl_set:Nn \l_cvdata_optional_field_tl {#1}
+    \tl_remove_all:Nn \l_cvdata_optional_field_tl { \par }
+    \tl_trim_spaces:N \l_cvdata_optional_field_tl
+    \tl_if_blank:VF \l_cvdata_optional_field_tl {#2}
+  }
+
 \cs_new_protected:Npn \cvdata_map_csv_rows:Nnn #1#2#3
   {
     \ior_open:Nn #1 {#2}
@@ -745,10 +754,7 @@
   \def\cvthesisvalue{#7}%
   \cventry{#2}{#3}{#4}{}{}{%
     \cvsmallitem{研究分野：#5 \quad 指導教員：#6}%
-    \if\relax\detokenize{#7}\relax
-    \else
-      \cvsmallitem{#7}%
-    \fi
+    \cvifnonblank{#7}{\cvsmallitem{#7}}%
   }%
 }
 
