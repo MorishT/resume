@@ -711,6 +711,8 @@
 \newcommand{\cvsinglefilevalue}{}
 \newcommand{\cvresearchtitlevalue}{}
 \newcommand{\cvresearchsummaryvalue}{}
+\newcommand{\cvresearchachievementvalue}{}
+\newcommand{\cvreadsingletexttemp}{}
 \def\cvpar{\par}
 
 \newcommand{\cvreadcsvrowsloop}[2]{%
@@ -762,11 +764,40 @@
   \closein\cvtertiaryreader
 }
 
+\newcommand{\cvreadsingletextvalue}[2]{%
+  \def#2{}%
+  \begingroup
+    \catcode`\%=12
+    \openin\cvtertiaryreader=#1\relax
+    \ifeof\cvtertiaryreader
+      \global\let\cvreadsingletexttemp\empty
+    \else
+      \read\cvtertiaryreader to \cvcurrentline
+      \global\let\cvreadsingletexttemp\cvcurrentline
+    \fi
+    \closein\cvtertiaryreader
+  \endgroup
+  \let#2\cvreadsingletexttemp
+}
+
+\newcommand{\cvrenderresearchachievementitem}[1]{%
+  \IfFileExists{data/research_topics/#1/jp/achievements.txt}{%
+    \cvreadsingletextvalue{data/research_topics/#1/jp/achievements.txt}{\cvresearchachievementvalue}%
+    \if\relax\detokenize\expandafter{\cvresearchachievementvalue}\relax
+    \else
+      \cvsmallitem{主要成果：\cvresearchachievementvalue}%
+    \fi
+  }{}%
+}
+
 \newcommand{\cvrenderresearchworkitem}[1]{%
   \IfFileExists{data/research_topics/#1/jp/tldr.txt}{%
     \cvreadsinglevalue{data/research_topics/#1/jp/title.txt}{\cvresearchtitlevalue}%
     \cvreadsinglevalue{data/research_topics/#1/jp/tldr.txt}{\cvresearchsummaryvalue}%
-    \cventry{}{\cvresearchtitlevalue}{}{}{}{\cvsmallitem{\cvresearchsummaryvalue}}%
+    \cventry{}{\cvresearchtitlevalue}{}{}{}{%
+      \cvsmallitem{\cvresearchsummaryvalue}%
+      \cvrenderresearchachievementitem{#1}%
+    }%
   }{}%
 }
 
