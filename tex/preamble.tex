@@ -396,19 +396,21 @@
 }
 
 \newbibmacro*{cvpub:venue}{%
-  \iffieldundef{journaltitle}
-    {\iffieldundef{journal}
-      {\iffieldundef{booktitle}
-        {\iflistundef{publisher}
-          {\iflistundef{organization}
-            {\iffieldundef{howpublished}
-              {}
-              {\printfield{howpublished}}}
-            {\printlist{organization}}}
-          {\printlist{publisher}}}
-        {\printfield{booktitle}}}
-      {\printfield{journal}}}
-    {\printfield{journaltitle}}%
+  \ifentrykey{morishita_2026_AAAI_bridge}
+    {\textcolor{red}{AAAI} Bridge Program \mkbibquote{Logical and Symbolic Reasoning in Language Models} keynote speech}
+    {\iffieldundef{journaltitle}
+      {\iffieldundef{journal}
+        {\iffieldundef{booktitle}
+          {\iflistundef{publisher}
+            {\iflistundef{organization}
+              {\iffieldundef{howpublished}
+                {}
+                {\printfield{howpublished}}}
+              {\printlist{organization}}}
+            {\printlist{publisher}}}
+          {\printfield{booktitle}}}
+        {\printfield{journal}}}
+      {\printfield{journaltitle}}}%
 }
 
 \newbibmacro*{cvpub:venuearg}{%
