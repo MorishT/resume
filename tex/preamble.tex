@@ -232,14 +232,14 @@
 \newlength{\cvsmallbulletitemsep}
 \newlength{\cvsmallbullettopsep}
 \newlength{\cvworkresearchtitlesep}
-\newlength{\cvworkpositiontitlesep}
+\newlength{\cvperiodchangetitlesep}
 \setlength{\cvsmallbulletleftmargin}{2.0em}
 \setlength{\cvsmallbulletlabelwidth}{0.8em}
 \setlength{\cvsmallbulletlabelsep}{0.4em}
 \setlength{\cvsmallbulletitemsep}{0.9ex}
 \setlength{\cvsmallbullettopsep}{0.7ex}
 \setlength{\cvworkresearchtitlesep}{1.4ex}
-\setlength{\cvworkpositiontitlesep}{2.4ex}
+\setlength{\cvperiodchangetitlesep}{3.2ex}
 \newcommand{\cvsmallbulletlabel}{%
   \raisebox{\cvsmallbulletraise}{\textcolor{\cvsmallbulletcolor}{{\cvsmallbulletsize\cvsmallbulletsymbol}}}%
 }
@@ -698,6 +698,7 @@
 \newread\cvsecondaryreader
 \newread\cvtertiaryreader
 \newif\ifcvworkpositionseen
+\newif\ifcveducationseen
 \newcommand{\cvcsvend}{}
 \newcommand{\cvcurrentline}{}
 \newcommand{\cvthesisvalue}{}
@@ -708,6 +709,8 @@
 \newcommand{\cvreadsingletexttemp}{}
 \newcommand{\cvworkcurrentperiod}{}
 \newcommand{\cvpreviousworkperiod}{}
+\newcommand{\cveducationcurrentperiod}{}
+\newcommand{\cvpreviouseducationperiod}{}
 \def\cvpar{\par}
 
 \newcommand{\cvreadcsvrowsloop}[2]{%
@@ -733,6 +736,16 @@
 }
 
 \def\cveducationrow#1,#2,#3,#4,#5,#6,#7\cvcsvend{%
+  \def\cveducationcurrentperiod{#2}%
+  \ifcveducationseen
+    \ifx\cveducationcurrentperiod\cvpreviouseducationperiod
+    \else
+      \par\addvspace{\cvperiodchangetitlesep}%
+    \fi
+  \else
+    \cveducationseentrue
+  \fi
+  \let\cvpreviouseducationperiod\cveducationcurrentperiod
   \def\cvthesisvalue{#7}%
   \cventry{#2}{#3}{#4}{}{}{%
     \cvsmallitem{研究分野：#5 \quad 指導教員：#6}%
@@ -741,6 +754,8 @@
 }
 
 \newcommand{\cvrendereducation}[1]{%
+  \cveducationseenfalse
+  \def\cvpreviouseducationperiod{}%
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cveducationrow}%
 }
 
@@ -830,7 +845,7 @@
   \ifcvworkpositionseen
     \ifx\cvworkcurrentperiod\cvpreviousworkperiod
     \else
-      \par\addvspace{\cvworkpositiontitlesep}%
+      \par\addvspace{\cvperiodchangetitlesep}%
     \fi
   \else
     \cvworkpositionseentrue
