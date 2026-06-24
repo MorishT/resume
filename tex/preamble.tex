@@ -235,9 +235,9 @@
 \setlength{\cvsmallbulletleftmargin}{2.0em}
 \setlength{\cvsmallbulletlabelwidth}{0.8em}
 \setlength{\cvsmallbulletlabelsep}{0.4em}
-\setlength{\cvsmallbulletitemsep}{0.35ex}
+\setlength{\cvsmallbulletitemsep}{0.65ex}
 \setlength{\cvsmallbullettopsep}{0.35ex}
-\setlength{\cvworkresearchtitlesep}{0.6ex}
+\setlength{\cvworkresearchtitlesep}{1.4ex}
 \newcommand{\cvsmallbulletlabel}{%
   \raisebox{\cvsmallbulletraise}{\textcolor{\cvsmallbulletcolor}{{\cvsmallbulletsize\cvsmallbulletsymbol}}}%
 }
@@ -810,8 +810,22 @@
   \fi
 }
 
+\newcommand{\cvrenderhitachiworkoverview}{%
+  \par\addvspace{0.2ex}%
+  \noindent\begin{minipage}{\textwidth}%
+    以下の研究テーマはいずれも、研究の全工程を一貫して担当しています。
+    具体的には、プロジェクトの立ち上げから、手法の着想、開発、実験、特許出願、論文執筆・対外発表までを担当しています。
+  \end{minipage}%
+  \par\addvspace{0.6ex}%
+}
+
 \def\cvworkpositionrow#1,#2,#3,#4\cvcsvend{%
   \cvsubsection{#3}{#4}%
+  \def\cvworkpositionvalue{#1}%
+  \def\cvpositionlabel{hitachi}%
+  \ifx\cvworkpositionvalue\cvpositionlabel
+    \cvrenderhitachiworkoverview
+  \fi
   \cvrenderworkprojectsforposition{#1}%
 }
 
