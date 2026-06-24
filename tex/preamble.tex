@@ -232,12 +232,14 @@
 \newlength{\cvsmallbulletitemsep}
 \newlength{\cvsmallbullettopsep}
 \newlength{\cvworkresearchtitlesep}
+\newlength{\cvworkpositiontitlesep}
 \setlength{\cvsmallbulletleftmargin}{2.0em}
 \setlength{\cvsmallbulletlabelwidth}{0.8em}
 \setlength{\cvsmallbulletlabelsep}{0.4em}
 \setlength{\cvsmallbulletitemsep}{0.9ex}
 \setlength{\cvsmallbullettopsep}{0.7ex}
 \setlength{\cvworkresearchtitlesep}{1.4ex}
+\setlength{\cvworkpositiontitlesep}{2.4ex}
 \newcommand{\cvsmallbulletlabel}{%
   \raisebox{\cvsmallbulletraise}{\textcolor{\cvsmallbulletcolor}{{\cvsmallbulletsize\cvsmallbulletsymbol}}}%
 }
@@ -695,6 +697,7 @@
 \newread\cvprimaryreader
 \newread\cvsecondaryreader
 \newread\cvtertiaryreader
+\newif\ifcvworkpositionseen
 \newcommand{\cvcsvend}{}
 \newcommand{\cvcurrentline}{}
 \newcommand{\cvthesisvalue}{}
@@ -703,6 +706,8 @@
 \newcommand{\cvresearchsummaryvalue}{}
 \newcommand{\cvresearchachievementvalue}{}
 \newcommand{\cvreadsingletexttemp}{}
+\newcommand{\cvworkcurrentperiod}{}
+\newcommand{\cvpreviousworkperiod}{}
 \def\cvpar{\par}
 
 \newcommand{\cvreadcsvrowsloop}[2]{%
@@ -821,8 +826,18 @@
 }
 
 \def\cvworkpositionrow#1,#2,#3,#4\cvcsvend{%
-  \cvsubsection{#3}{#4}%
+  \def\cvworkcurrentperiod{#3}%
+  \ifcvworkpositionseen
+    \ifx\cvworkcurrentperiod\cvpreviousworkperiod
+    \else
+      \par\addvspace{\cvworkpositiontitlesep}%
+    \fi
+  \else
+    \cvworkpositionseentrue
+  \fi
+  \let\cvpreviousworkperiod\cvworkcurrentperiod
   \def\cvworkpositionvalue{#1}%
+  \cvsubsection{#3}{#4}%
   \def\cvpositionlabel{hitachi}%
   \ifx\cvworkpositionvalue\cvpositionlabel
     \cvrenderhitachiworkoverview
@@ -831,6 +846,8 @@
 }
 
 \newcommand{\cvrenderworkexperience}[1]{%
+  \cvworkpositionseenfalse
+  \def\cvpreviousworkperiod{}%
   \cvreadcsvrows{\cvprimaryreader}{#1}{\cvworkpositionrow}%
 }
 
